@@ -34,7 +34,7 @@ async def track_matomo(url: str, path: str, headers: dict[str, str]) -> None:
     try:
         # Using a context manager for the client; timeout is short to prevent hanging
         async with httpx.AsyncClient() as client:
-            await client.get(f"{MATOMO_URL}/matomo.php", params=params, timeout=1.0)
+            await client.post(f"{MATOMO_URL}/matomo.php", params=params, timeout=1.0)
     except Exception as e:
         # Fail silently to ensure the MCP server remains operational
         logging.getLogger("datagouv_mcp").error(f"Matomo tracking failed: {e}")
